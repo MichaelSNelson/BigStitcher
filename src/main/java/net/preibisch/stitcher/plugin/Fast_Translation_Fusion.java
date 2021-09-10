@@ -50,6 +50,7 @@ import mpicbg.spim.data.sequence.ViewId;
 import net.imglib2.Dimensions;
 import net.imglib2.FinalInterval;
 import net.imglib2.RandomAccessibleInterval;
+import net.imglib2.cache.img.DiskCachedCellImgFactory;
 import net.imglib2.img.NativeImg;
 import net.imglib2.img.array.ArrayImgFactory;
 import net.imglib2.img.cell.CellImgFactory;
@@ -311,17 +312,17 @@ public class Fast_Translation_Fusion implements PlugIn
 					+ groupCount.incrementAndGet() + " of " + nGroups + "." );
 
 			NativeImg< FloatType, ? > outImg = ( numPixels > ( Math.pow( 2, 31 ) - 1 )
-					? new CellImgFactory<>( new FloatType() )
+					? new DiskCachedCellImgFactory<>( new FloatType() )
 					: new ArrayImgFactory<>( new FloatType() ) ).create( renderInterval );
 			
 			NativeImg< FloatType, ? > weightImg = ( numPixels > ( Math.pow( 2, 31 ) - 1 )
-					? new CellImgFactory<>( new FloatType() )
+					? new DiskCachedCellImgFactory<>( new FloatType() )
 					: new ArrayImgFactory<>( new FloatType() ) ).create( renderInterval );
 			
 			NativeImg< FloatType, ? > alphaImg = null;
 			if ( parameters.useLinearInterpolation )
 				alphaImg = ( numPixels > ( Math.pow( 2, 31 ) - 1 )
-						? new CellImgFactory<>( new FloatType() )
+						? new DiskCachedCellImgFactory<>( new FloatType() )
 						: new ArrayImgFactory<>( new FloatType() ) ).create( renderInterval );
 
 			List< Callable< Pair< Integer, RandomAccessibleInterval< FloatType > > > > calls = new ArrayList<>();
@@ -340,9 +341,10 @@ public class Fast_Translation_Fusion implements PlugIn
 						{
 							// load downsampled
 							// TODO: load T, not float?
+							//changed 3rd bool to false
 							RandomAccessibleInterval< FloatType > downsampledImg = DownsampleTools.openAndDownsample(
 									spimData.getSequenceDescription().getImgLoader(), presentViewDescriptions.get( i2 ),
-									new AffineTransform3D(), new long[] { parameters.downsampling, parameters.downsampling, parameters.downsampling }, false, true, true, pool );
+									new AffineTransform3D(), new long[] { parameters.downsampling, parameters.downsampling, parameters.downsampling }, false, true, false, pool );
 							return new ValuePair< Integer, RandomAccessibleInterval<FloatType> >( i2, downsampledImg );
 						}
 					});
@@ -428,7 +430,7 @@ public class Fast_Translation_Fusion implements PlugIn
 						? new CellImgFactory<>( new UnsignedShortType() )
 						: new ArrayImgFactory<>( new UnsignedShortType() ) ).create( renderInterval );
 				FastFusionTools.addTranslated( outImg, outShort, Util.getArrayFromValue( 0, 3 ), pool );
-				ImageJFunctions.show( outShort );
+				//BdvFunctions.show( outShort );
 			}
 			
 

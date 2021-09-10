@@ -635,23 +635,23 @@ public class FastFusionTools
 
 	public static void main(String[] args)
 	{
-		final ImagePlus imp = IJ.openImage( "/Users/david/Desktop/stable HelaK-GFP-H2A.Z20000.tif" );
+		//final ImagePlus imp = IJ.openImage( "/Users/david/Desktop/stable HelaK-GFP-H2A.Z20000.tif" );
 		new ImageJ();
 
-		RandomAccessibleInterval< ? extends RealType > img = ImageJFunctions.wrapReal( imp );
-		ArrayImg< FloatType, FloatArray > f = ArrayImgs.floats( 1024, 1024 );
-		ArrayImg< FloatType, FloatArray > w = ArrayImgs.floats( 1024, 1024 );
-		RandomAccessibleInterval< FloatType > interp = (RandomAccessibleInterval< FloatType >) getLinearInterpolation( img, new FloatType(), new float[] {0.5f,0.5f}, Executors.newSingleThreadExecutor() ).getA();
-		
-		RandomAccessibleInterval< FloatType > weight = new ArrayImgFactory( new FloatType() ).create( interp );
-		applyWeights( interp, weight, new float[] {0.5f,0.5f}, new float[] {0,0}, new float[] {20,20}, false, Executors.newSingleThreadExecutor() );
-		addTranslated( Views.iterable( interp ), f, new int[] {500, 700}, Executors.newSingleThreadExecutor() );
-		addTranslated( Views.iterable( interp ), f, new int[] {400, 500}, Executors.newSingleThreadExecutor() );
-		addTranslated( Views.iterable( weight ), w, new int[] {500, 700}, Executors.newSingleThreadExecutor() );
-		addTranslated( Views.iterable( weight ), w, new int[] {400, 500}, Executors.newSingleThreadExecutor() );
-
-		normalizeWeights( f, w, Executors.newSingleThreadExecutor() );
-		
-		ImageJFunctions.show( f );
+//		RandomAccessibleInterval< ? extends RealType > img = ImageJFunctions.wrapReal( imp );
+//		ArrayImg< FloatType, FloatArray > f = ArrayImgs.floats( 1024, 1024 );
+//		ArrayImg< FloatType, FloatArray > w = ArrayImgs.floats( 1024, 1024 );
+//		RandomAccessibleInterval< FloatType > interp = (RandomAccessibleInterval< FloatType >) getLinearInterpolation( img, new FloatType(), new float[] {0.5f,0.5f}, Executors.newSingleThreadExecutor() ).getA();
+//		
+//		RandomAccessibleInterval< FloatType > weight = new ArrayImgFactory( new FloatType() ).create( interp );
+//		applyWeights( interp, weight, new float[] {0.5f,0.5f}, new float[] {0,0}, new float[] {20,20}, false, Executors.newSingleThreadExecutor() );
+//		addTranslated( Views.iterable( interp ), f, new int[] {500, 700}, Executors.newSingleThreadExecutor() );
+//		addTranslated( Views.iterable( interp ), f, new int[] {400, 500}, Executors.newSingleThreadExecutor() );
+//		addTranslated( Views.iterable( weight ), w, new int[] {500, 700}, Executors.newSingleThreadExecutor() );
+//		addTranslated( Views.iterable( weight ), w, new int[] {400, 500}, Executors.newSingleThreadExecutor() );
+//
+//		normalizeWeights( f, w, Executors.newSingleThreadExecutor() );
+//		
+//		ImageJFunctions.show( f );
 	}
 }

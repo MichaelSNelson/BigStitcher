@@ -99,7 +99,7 @@
 
 		<license.licenseName>gpl_v2</license.licenseName>
 		<license.copyrightOwners>Big Stitcher developers.</license.copyrightOwners>
-		<multiview-reconstruction.version>0.11.0</multiview-reconstruction.version>
+		<multiview-reconstruction.version>0.11.1-SNAPSHOT</multiview-reconstruction.version>
 		<multiview-simulation.version>0.2.0</multiview-simulation.version>
 
 		<bigdataviewer-core.version>10.2.0</bigdataviewer-core.version>
@@ -109,6 +109,7 @@
 
 		<!-- NB: Deploy releases to the SciJava Maven repository. -->
 		<releaseProfiles>deploy-to-scijava</releaseProfiles>
+		<maven-enforcer-plugin.version>1.4.1</maven-enforcer-plugin.version>
 	</properties>
 
 	<repositories>
